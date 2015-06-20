@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+
 
 namespace PelengTestCalculator
 {
     class Program
     {
-        static void Main(string[] args)
+
+        public static double ExitFunc(params double[] args)
         {
-            Dictionary<String, IOperation> dictionary = new Dictionary<string, IOperation>
+           Environment.Exit(0);
+           return 0;
+        }
+
+        public static Dictionary<String, IOperation> operations = new Dictionary<string, IOperation>
             {
                 {"+", new Operations(Arithmetic.Sum)},
                 {"-", new Operations(Arithmetic.Sub)},
@@ -15,48 +23,59 @@ namespace PelengTestCalculator
                 {"*", new Operations(Arithmetic.Mul)},
                 {"cos", new Operations(Arithmetic.Cos)},
                 {"sin", new Operations(Arithmetic.Sin)},
-                {"atan2", new Operations(Arithmetic.Atan2)}
+                {"atan2", new Operations(Arithmetic.Atan2)},
+                {"exit", new Operations(ExitFunc)}
             };
+ 
+
+        static void Main(string[] args)
+        {
+
             while (true)
             {
                 try
                 {
                     Console.Write("op: ");
-                    String command = Console.ReadLine();
-                    if(command == "exit")
-                        break;
+                    var operation = ReadCommand();
                     Console.Write("args: ");
-                    String arguments = Console.ReadLine();
-                    string[] argStrings = arguments.Split(' ');
-                    double[] argsDoubles = new double[argStrings.Length];
-                    for (int i = 0; i < argStrings.Length; i++)
-                    {
-                        argsDoubles[i] = Convert.ToDouble(argStrings[i]);
-                    }
-                    Console.WriteLine(dictionary[command].Call(argsDoubles));
+                    var arguments = ReadArguments();
+                    Console.WriteLine(operation.Call(arguments));
                 }
-                catch (NullReferenceException)
-                {
-                    Console.WriteLine("Invalid arguments");
-                }
-                catch (InvalidCastException)
-                {
-                    Console.WriteLine("Invalid arguments");
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Invalid arguments");
-                }
-                catch (KeyNotFoundException)
-                {
-                    Console.WriteLine("Invalid operation");
-                }
-                catch (ArgumentException e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
         }
 
+        private static double[] ReadArguments()
+        {
+            try
+            {
+                var arguments = Console.ReadLine();
+                return  arguments.Trim()
+                                 .Split(' ')
+                                 .Select(double.Parse)
+                                 .ToArray();
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Incorrect arguments");
+            }
+        }
+
+        private static IOperation ReadCommand()
+        {
+            var command = Console.ReadLine();
+            if (command != null)
+            {
+                command = command.Replace(" ", "");
+                if (operations.ContainsKey(command))
+                {
+                    return operations[command];
+                }
+            }
+            throw new ArgumentException("Incorrect operation");
+        }
     }
 }
