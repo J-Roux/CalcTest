@@ -1,0 +1,6 @@
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\bin\Debug\PelengTestCalculator.exe.config
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\bin\Debug\PelengTestCalculator.exe
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\bin\Debug\PelengTestCalculator.pdb
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\obj\Debug\PelengTestCalculator.csprojResolveAssemblyReference.cache
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\obj\Debug\PelengTestCalculator.exe
+c:\users\jroux\documents\visual studio 2013\Projects\PelengTestCalculator\PelengTestCalculator\obj\Debug\PelengTestCalculator.pdb
