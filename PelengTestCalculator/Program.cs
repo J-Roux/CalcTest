@@ -54,22 +54,23 @@ namespace PelengTestCalculator
             {
                 var arguments = Console.ReadLine();
                 return  arguments.Trim()
+                                 .ToLower()
                                  .Split(' ')
                                  .Select(double.Parse)
                                  .ToArray();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new ArgumentException("Incorrect arguments");
+                throw new ArgumentException("Incorrect arguments", exception);
             }
         }
 
         private static IOperation ReadCommand()
         {
             var command = Console.ReadLine();
-            if (command != null)
+            if (!String.IsNullOrEmpty(command))
             {
-                command = command.Replace(" ", "");
+                command = command.Trim();
                 if (operations.ContainsKey(command))
                 {
                     return operations[command];
