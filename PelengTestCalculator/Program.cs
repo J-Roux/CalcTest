@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Globalization;
 using System.Linq;
 
 
@@ -17,14 +18,14 @@ namespace PelengTestCalculator
 
         public static Dictionary<String, IOperation> operations = new Dictionary<string, IOperation>
             {
-                {"+", new Operations(Arithmetic.Sum)},
-                {"-", new Operations(Arithmetic.Sub)},
-                {"/", new Operations(Arithmetic.Div)},
-                {"*", new Operations(Arithmetic.Mul)},
-                {"cos", new Operations(Arithmetic.Cos)},
-                {"sin", new Operations(Arithmetic.Sin)},
-                {"atan2", new Operations(Arithmetic.Atan2)},
-                {"exit", new Operations(ExitFunc)}
+                {"+", new Operation(Arithmetic.Sum)},
+                {"-", new Operation(Arithmetic.Sub)},
+                {"/", new Operation(Arithmetic.Div)},
+                {"*", new Operation(Arithmetic.Mul)},
+                {"cos", new Operation(Arithmetic.Cos)},
+                {"sin", new Operation(Arithmetic.Sin)},
+                {"atan2", new Operation(Arithmetic.Atan2)},
+                {"exit", new Operation(ExitFunc)}
             };
  
 
@@ -56,7 +57,7 @@ namespace PelengTestCalculator
                 return  arguments.Trim()
                                  .ToLower()
                                  .Split(' ')
-                                 .Select(double.Parse)
+                                 .Select( number => double.Parse(number, CultureInfo.InvariantCulture))
                                  .ToArray();
             }
             catch (Exception exception)
